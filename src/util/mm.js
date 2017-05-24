@@ -2,7 +2,7 @@
 * @Author: Rosen
 * @Date:   2017-05-15 15:26:38
 * @Last Modified by:   Rosen
-* @Last Modified time: 2017-05-16 11:14:08
+* @Last Modified time: 2017-05-21 14:58:37
 */
 
 'use strict';
@@ -80,7 +80,7 @@ var _mm = {
     },
     // 统一登录处理
     doLogin : function(){
-        window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.href);
+        window.location.href = './user-login.html?redirect=' + encodeURIComponent(window.location.href);
     },
     goHome : function(){
         window.location.href = './index.html';

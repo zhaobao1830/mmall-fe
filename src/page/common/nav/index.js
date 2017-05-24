@@ -2,7 +2,7 @@
 * @Author: Rosen
 * @Date:   2017-05-17 14:17:01
 * @Last Modified by:   Rosen
-* @Last Modified time: 2017-05-17 22:55:58
+* @Last Modified time: 2017-05-22 12:21:05
 */
 
 'use strict';
@@ -25,7 +25,7 @@ var nav = {
         });
         // 注册点击事件
         $('.js-register').click(function(){
-            window.location.href = './register.html';
+            window.location.href = './user-register.html';
         });
         // 退出点击事件
         $('.js-logout').click(function(){
