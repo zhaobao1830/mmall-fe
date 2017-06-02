@@ -19,5 +19,5 @@
     开发模式: npm run dev (windows系统上为npm run dev_win)
     生产模式: npm run dist (windows系统上为npm run dist_win)
 
-7.预览项目
+7.开发模式下预览项目
     访问：http://localhost:8088/dist/view/index.html
