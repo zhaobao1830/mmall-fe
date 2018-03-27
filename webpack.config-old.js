@@ -2,7 +2,7 @@
 * @Author: Rosen
 * @Date:   2017-05-08 15:28:19
 * @Last Modified by:   Rosen
-* @Last Modified time: 2018-03-27 12:52:49
+* @Last Modified time: 2018-03-24 09:45:59
 */
 var webpack             = require('webpack');
 var ExtractTextPlugin   = require('extract-text-webpack-plugin');
@@ -25,25 +25,24 @@ var getHtmlConfig = function(name, title){
 };
 // webpack config
 var config = {
-    mode : 'dev' === WEBPACK_ENV ? 'development' : 'production',
     entry: {
-        'common'            : './src/page/common/index.js',
-        'index'             : './src/page/index/index.js',
-        'list'              : './src/page/list/index.js',
-        'detail'            : './src/page/detail/index.js',
-        'cart'              : './src/page/cart/index.js',
-        'order-confirm'     : './src/page/order-confirm/index.js',
-        'order-list'        : './src/page/order-list/index.js',
-        'order-detail'      : './src/page/order-detail/index.js',
-        'payment'           : './src/page/payment/index.js',
-        'user-login'        : './src/page/user-login/index.js',
-        'user-register'     : './src/page/user-register/index.js',
-        'user-pass-reset'   : './src/page/user-pass-reset/index.js',
-        'user-center'       : './src/page/user-center/index.js',
-        'user-center-update': './src/page/user-center-update/index.js',
-        'user-pass-update'  : './src/page/user-pass-update/index.js',
-        'result'            : './src/page/result/index.js',
-        'about'             : './src/page/about/index.js',
+        'common'            : ['./src/page/common/index.js'],
+        'index'             : ['./src/page/index/index.js'],
+        'list'              : ['./src/page/list/index.js'],
+        'detail'            : ['./src/page/detail/index.js'],
+        'cart'              : ['./src/page/cart/index.js'],
+        'order-confirm'     : ['./src/page/order-confirm/index.js'],
+        'order-list'        : ['./src/page/order-list/index.js'],
+        'order-detail'      : ['./src/page/order-detail/index.js'],
+        'payment'           : ['./src/page/payment/index.js'],
+        'user-login'        : ['./src/page/user-login/index.js'],
+        'user-register'     : ['./src/page/user-register/index.js'],
+        'user-pass-reset'   : ['./src/page/user-pass-reset/index.js'],
+        'user-center'       : ['./src/page/user-center/index.js'],
+        'user-center-update': ['./src/page/user-center-update/index.js'],
+        'user-pass-update'  : ['./src/page/user-pass-update/index.js'],
+        'result'            : ['./src/page/result/index.js'],
+        'about'             : ['./src/page/about/index.js'],
     },
     output: {
         path        : __dirname + '/dist/',
@@ -54,51 +53,16 @@ var config = {
         'jquery' : 'window.jQuery'
     },
     module: {
-        rules: [
-            // css文件的处理
+        loaders: [
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader") },
+            { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
-            },
-            // 模板文件的处理
-            {
-                test: /\.string$/,
-                use: {
-                    loader: 'html-loader',
-                    options: {
-                        minimize : true,
-                        removeAttributeQuotes : false
-                    }
+                test: /\.string$/, 
+                loader: 'html-loader',
+                query : {
+                    minimize : true,
+                    removeAttributeQuotes : false
                 }
-            },
-            // 图片的配置
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 2000,
-                            name: 'resource/[name].[ext]'
-                        }
-                    }
-                ]
-            },
-            // 字体图标的配置
-            {
-                test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: 'resource/[name].[ext]'
-                        }
-                    }
-                ]
             }
         ]
     },
@@ -111,24 +75,12 @@ var config = {
             image           : __dirname + '/src/image'
         }
     },
-    optimization:{
-        runtimeChunk: false,
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    name: "common",
-                    chunks: "initial",
-                    minChunks: 2
-                }
-            }
-        }
-    },
     plugins: [
-        // // 独立通用模块到js/base.js
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name : 'common',
-        //     filename : 'js/base.js'
-        // }),
+        // 独立通用模块到js/base.js
+        new webpack.optimize.CommonsChunkPlugin({
+            name : 'common',
+            filename : 'js/base.js'
+        }),
         // 把css单独打包到文件里
         new ExtractTextPlugin("css/[name].css"),
         // html模板的处理
