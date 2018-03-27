@@ -29,3 +29,12 @@
 * 添加devServer的proxy选项，开发模式下可以直接访问接口，不再需要charles或fiddler做代理
 
 * 将启动命令中的inline和port选项从命令移到了配置文件中
+
+
+---
+##mmall-fe v1.0.2改动：
+
+* 升级webpack到4.2.0版本，并升级相关插件
+
+* 将小于2kb的图片进行base64转码
+
