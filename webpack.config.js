@@ -11,7 +11,7 @@ var HtmlWebpackPlugin   = require('html-webpack-plugin');
 // 环境变量配置，dev / online
 var WEBPACK_ENV         = process.env.WEBPACK_ENV || 'dev';
 
-// 获取html-webpack-plugin参数的方法 
+// 获取html-webpack-plugin参数的方法
 var getHtmlConfig = function(name, title){
     return {
         template    : './src/view/' + name + '.html',
@@ -25,11 +25,11 @@ var getHtmlConfig = function(name, title){
 };
 // webpack config
 var config = {
-    /* 
+    /*
     * 【新增】：新增mode参数，webpack4中要指定模式，可以放在配置文件这里，也可以放在启动命令里，如--mode production
     */
     mode : 'dev' === WEBPACK_ENV ? 'development' : 'production',
-    /* 
+    /*
     * 【改动】：删除了入口文件的中括号，可选的改动，没什么影响
     */
     entry: {
@@ -49,10 +49,10 @@ var config = {
         'user-center-update': './src/page/user-center-update/index.js',
         'user-pass-update'  : './src/page/user-pass-update/index.js',
         'result'            : './src/page/result/index.js',
-        'about'             : './src/page/about/index.js',
+        'about'             : './src/page/about/index.js'
     },
     output: {
-        /* 
+        /*
         * 【改动】：删除path的配置，在webpack4中文件默认生成的位置就是/dist,
         *  而publicPath和filename特性的设置要保留
         */
@@ -64,11 +64,11 @@ var config = {
         'jquery' : 'window.jQuery'
     },
     module: {
-        /* 
+        /*
         * 【改动】：loader的使用中，loaders字段变为rules，用来放各种文件的加载器，用rules确实更为贴切
         */
         rules: [
-            /* 
+            /*
             * 【改动】：css样式的加载方式变化
             */
             // css文件的处理
@@ -79,7 +79,7 @@ var config = {
                     use: "css-loader"
                 })
             },
-            /* 
+            /*
             * 【改动】：模板文件的加载方式变化
             */
             // 模板文件的处理
@@ -93,7 +93,7 @@ var config = {
                     }
                 }
             },
-            /* 
+            /*
             * 【改动】：图片文件的加载方式变化，并和字体文件分开处理
             */
             // 图片的配置
@@ -103,7 +103,7 @@ var config = {
                     {
                         loader: 'url-loader',
                         options: {
-                            /* 
+                            /*
                             * 【改动】：图片小于2kb的按base64打包
                             */
                             limit: 2048,
@@ -112,7 +112,7 @@ var config = {
                     }
                 ]
             },
-            /* 
+            /*
             * 【改动】：字体文件的加载方式变化
             */
             // 字体图标的配置
@@ -139,7 +139,7 @@ var config = {
             image           : __dirname + '/src/image'
         }
     },
-    /* 
+    /*
     * 【新增】：webpack4里面移除了commonChunksPulgin插件，放在了config.optimization里面
     */
     optimization:{
@@ -155,7 +155,7 @@ var config = {
         }
     },
     plugins: [
-        /* 
+        /*
         * 【移除】：webpack4里面移除了commonChunksPulgin插件
         */
         // // 独立通用模块到js/base.js
@@ -183,7 +183,7 @@ var config = {
         new HtmlWebpackPlugin(getHtmlConfig('result', '操作结果')),
         new HtmlWebpackPlugin(getHtmlConfig('about', '关于MMall')),
     ],
-    /* 
+    /*
     * 【新增】：在v1.0.1版本中新增了devServer的配置，用自带的代理就可以访问接口
     */
     devServer: {
